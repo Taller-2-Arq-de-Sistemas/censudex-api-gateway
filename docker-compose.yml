@@ -1,0 +1,45 @@
+services:
+  nginx-gateway:
+    image: nginx:stable
+    container_name: nginx-gateway
+    ports:
+      - "5001:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./logs:/var/log/nginx
+    depends_on:
+      - auth-service
+      - clients-service
+    networks:
+      - censudex-net
+
+  auth-service:
+    build: ../censudex-auth-service 
+    container_name: auth-service
+    ports:
+      - "5002:5002"
+    env_file:
+      - ../censudex-auth-service/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5002
+    networks:
+      - censudex-net
+
+  clients-service:
+    build:
+      context: ../censudex-clients-service
+      dockerfile: Dockerfile
+    container_name: clients-service
+    ports:
+      - "5003:5003"
+    env_file:
+      - ../censudex-clients-service/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5003 
+    networks:
+      - censudex-net
+
+networks:
+  censudex-net:
+    driver: bridge
