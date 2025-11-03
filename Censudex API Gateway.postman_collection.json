@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "60a1d963-e9e5-49f9-8f48-cf0dd84753b5",
+		"name": "Censudex API Gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34959447",
+		"_collection_link": "https://taller2censudex.postman.co/workspace/Censudex~1f3f6e1b-c0b1-41c2-9bac-6d04b410bfce/collection/34959447-60a1d963-e9e5-49f9-8f48-cf0dd84753b5?action=share&source=collection_link&creator=34959447"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Validate token",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiYTRmOGMxZTUtYTMzMS00ODUxLWJmNTItYTYzNGViYmY2ZDAyIiwiZXhwIjoxNzYyMDY1NjI4fQ.CTJmRm6drwgIu_AquKP2FNpbmbLBj3mqs0TJwYVJiuk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway_baseurl}}/auth-api/auth/validate-token",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"auth-api",
+								"auth",
+								"validate-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"identifier\": \"admin@censudex.cl\",\r\n  \"password\": \"Password1234!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway_baseurl}}/auth-api/auth/login",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"auth-api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiYTRmOGMxZTUtYTMzMS00ODUxLWJmNTItYTYzNGViYmY2ZDAyIiwiZXhwIjoxNzYyMDY1NjI4fQ.CTJmRm6drwgIu_AquKP2FNpbmbLBj3mqs0TJwYVJiuk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway_baseurl}}/auth-api/auth/logout",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"auth-api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Alice\",\r\n  \"lastName\": \"Wonderland\",\r\n  \"email\": \"alice@censudex.cl\",\r\n  \"username\": \"alice123\",\r\n  \"birthDate\": \"1995-08-15\",\r\n  \"address\": \"123 Fantasy St\",\r\n  \"phoneNumber\": \"+56912345678\",\r\n  \"password\": \"StrongPass1!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway_baseurl}}/clients-api/clients",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"clients-api",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway_baseurl}}/clients-api/clients",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"clients-api",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "fullName",
+									"value": "Alice",
+									"disabled": true
+								},
+								{
+									"key": "isActive",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "alice",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "aliceupdated@censudex.cl",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{gateway_baseurl}}/clients-api/clients/ea3f707f-bb11-4fd3-8ddc-0166d52992f4",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"clients-api",
+								"clients",
+								"ea3f707f-bb11-4fd3-8ddc-0166d52992f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"AliceUpdated\",\r\n  \"lastName\": \"WonderlandUpdated\",\r\n  \"email\": \"aliceupdated@censudex.cl\",\r\n  \"username\": \"aliceUpdated123\",\r\n  \"birthDate\": \"1995-08-15\",\r\n  \"address\": \"456 Fantasy St\",\r\n  \"phoneNumber\": \"+56987654321\",\r\n  \"password\": \"NewStrongPass1!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway_baseurl}}/clients-api/clients/0256854b-0bb2-425f-9440-58aad23b0edb",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"clients-api",
+								"clients",
+								"0256854b-0bb2-425f-9440-58aad23b0edb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiYTRmOGMxZTUtYTMzMS00ODUxLWJmNTItYTYzNGViYmY2ZDAyIiwiZXhwIjoxNzYyMDY1NjI4fQ.CTJmRm6drwgIu_AquKP2FNpbmbLBj3mqs0TJwYVJiuk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{gateway_baseurl}}/clients-api/clients/delete/0256854b-0bb2-425f-9440-58aad23b0edb",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"clients-api",
+								"clients",
+								"delete",
+								"0256854b-0bb2-425f-9440-58aad23b0edb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Credentials",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@censudex.cl\",\r\n  \"password\": \"Password1234!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway_baseurl}}/clients-api/clients/credentials",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"clients-api",
+								"clients",
+								"credentials"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": []
+		},
+		{
+			"name": "Inventory",
+			"item": []
+		},
+		{
+			"name": "Orders",
+			"item": []
+		}
+	]
+}
