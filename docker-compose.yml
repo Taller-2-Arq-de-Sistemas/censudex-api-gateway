@@ -15,12 +15,12 @@ services:
       - censudex-net
 
   auth-service:
-    build: ../censudex-auth-service 
+    build: ../censudex-auth  
     container_name: auth-service
     ports:
       - "5002:5002"
     env_file:
-      - ../censudex-auth-service/.env  
+      - ../censudex-auth/.env  
     environment:
       - ASPNETCORE_URLS=http://+:5002
     networks:
@@ -28,13 +28,13 @@ services:
 
   clients-service:
     build:
-      context: ../censudex-clients-service
+      context: ../censudex-clients   
       dockerfile: Dockerfile
     container_name: clients-service
     ports:
       - "5003:5003"
     env_file:
-      - ../censudex-clients-service/.env  
+      - ../censudex-clients/.env  
     environment:
       - ASPNETCORE_URLS=http://+:5003 
     networks:
