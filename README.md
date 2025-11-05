@@ -29,7 +29,7 @@ censudex-api-gateway/
 │   └── conf.d/                 # Configuraciones adicionales
 ├── logs/                       # Logs de Nginx
 ├── docker-compose.yml          # Orquestación de contenedores
-├── .env                        # Variables de entorno del gateway
+├── .env                        # Variables de entorno del gateway y servicios
 └── README.md
 ```
 
@@ -71,14 +71,71 @@ SUPABASE_KEY=your-db-key
 
 ## Ejecución del Proyecto
 
-### 1. Clonar todos los repositorios
+Existen **dos formas** de levantar el entorno completo de Censudex:
+
+1. **Modo Automático (recomendado)** — usando el `Makefile` incluido.
+2. **Modo Manual** — paso a paso.
+
+---
+### Opción 1: Modo Automático (con Makefile)
+
+Para simplificar proceso de levantamiento el proyecto incluye un `Makefile` que automatiza:
+
+* La clonación de todos los repositorios
+* La copia de los archivos `.env.example`
+* Y la construcción/ejecución de los contenedores
+
+
+#### 0. Clonar repositorio y copiar `.env.example`
+Copia y pega los comandos a continuación
+```bash
+git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-api-gateway
+cd censudex-api-gateway
+cp .env.example .env
+```
+
+#### 1. Configurar variables de entorno y ejecutar Docker Engine
+Dentro del archivo `.env` generado, copia tus variables de entorno en las variables sin asignar.
+Algunas variables, como SERVICE_PORT ya existen por predeterminado, llena aquellas sin un valor asignado.
+
+#### 2. Ejecutar el comando de instalación
+
+Desde cualquier terminal con soporte de `make` (Linux, macOS o WSL en Windows):
 
 ```bash
-# Clonar el API Gateway
-git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-api-gateway.git
-cd censudex-api-gateway
+make setup
+```
 
-# Clonar los microservicios (en el mismo directorio padre)
+> Esto:
+> * Clonará automáticamente los repositorios de todos los servicios.
+> * Creará los archivos `.env` a partir de los `.env.example`.
+> * Construirá y levantará todos los contenedores de Docker.
+
+---
+
+#### 3. Verificar los contenedores
+
+```bash
+docker ps
+```
+
+Si todo salió bien, deberías ver los mismos servicios levantados que en el modo manual.
+
+---
+
+#### 4. Acceder al sistema
+
+```
+http://localhost:5001
+```
+
+---
+
+### Opción 2: Modo Manual
+#### 1. Clonar todos los repositorios en el **mismo directorio raíz**
+
+```bash
+git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-api-gateway.git
 git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-auth.git
 git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-clients.git
 git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-inventory.git
@@ -86,20 +143,60 @@ git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-orders.git
 git clone https://github.com/Taller-2-Arq-de-Sistemas/censudex-products.git
 ```
 
+> **Importante:** Todos los repositorios deben ubicarse dentro del mismo directorio para que las rutas relativas del `docker-compose.yml` del API Gateway funcionen correctamente.
 
-### 2. Ejecutar con Docker Compose
+---
+
+#### 2. Copiar los archivos de configuración de entorno
+
+Cada servicio incluye un archivo de ejemplo llamado `.env.example` o `appsettings.Development.json`.
+Debes copiarlo y renombrarlo según corresponda:
+> **Antes de ejecutar el siguiente comando, confirma que cada servicio tiene su archivo `.env` completo.** 
 
 ```bash
-docker-compose up -d
+cp .env.example .env
 ```
 
-### 3. Verificar los servicios
+o
+
+```bash
+cp appsettings.Development.json appsettings.json
+```
+---
+
+#### 3. Ejecutar el sistema con Docker Compose
+
+Abre la aplicación **Docker Desktop** y desde el directorio del **API Gateway** (`censudex-api-gateway`) ejecuta lo siguiente:
+
+```bash
+docker compose up -d --build
+```
+
+Esto construirá las imágenes de los servicios y levantará los contenedores necesarios:
+
+* `nginx-gateway` (API Gateway)
+* `auth-service`
+* `clients-service`
+* `inventory-service`
+* `products-service`
+* `orders-service`
+
+---
+
+#### 4. Verificar el estado de los contenedores
 
 ```bash
 docker ps
 ```
 
-El Gateway estará disponible en:
+Si todo está correctamente configurado, deberías ver los contenedores ejecutándose en segundo plano.
+
+---
+
+#### 5. Acceder al sistema
+
+El **API Gateway** estará disponible en:
+
 ```
 http://localhost:5001
 ```
