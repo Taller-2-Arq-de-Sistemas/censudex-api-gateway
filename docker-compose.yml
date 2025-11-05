@@ -9,34 +9,86 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./logs:/var/log/nginx
     depends_on:
-      - auth-service
-      - clients-service
+      - auth-service-1
+      - auth-service-2
+      - auth-service-3
+      - clients-service-1
+      - clients-service-2
+      - clients-service-3
     networks:
       - censudex-net
 
-  auth-service:
+  # Auth Service Instances (3) for load balance
+  auth-service-1:
     build: ../censudex-auth  
-    container_name: auth-service
-    ports:
-      - "5002:5002"
+    container_name: auth-service-1
     env_file:
       - ../censudex-auth/.env  
     environment:
       - ASPNETCORE_URLS=http://+:5002
+      - INSTANCE_ID=1
     networks:
       - censudex-net
 
-  clients-service:
+  auth-service-2:
+    build: ../censudex-auth  
+    container_name: auth-service-2
+    env_file:
+      - ../censudex-auth/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5002
+      - INSTANCE_ID=2
+    networks:
+      - censudex-net
+
+  auth-service-3:
+    build: ../censudex-auth  
+    container_name: auth-service-3
+    env_file:
+      - ../censudex-auth/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5002
+      - INSTANCE_ID=3
+    networks:
+      - censudex-net
+
+  # Clients Service Instances (3) for load balance
+  clients-service-1:
     build:
       context: ../censudex-clients   
       dockerfile: Dockerfile
-    container_name: clients-service
-    ports:
-      - "5003:5003"
+    container_name: clients-service-1
     env_file:
       - ../censudex-clients/.env  
     environment:
-      - ASPNETCORE_URLS=http://+:5003 
+      - ASPNETCORE_URLS=http://+:5003
+      - INSTANCE_ID=1
+    networks:
+      - censudex-net
+
+  clients-service-2:
+    build:
+      context: ../censudex-clients   
+      dockerfile: Dockerfile
+    container_name: clients-service-2
+    env_file:
+      - ../censudex-clients/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5003
+      - INSTANCE_ID=2
+    networks:
+      - censudex-net
+
+  clients-service-3:
+    build:
+      context: ../censudex-clients   
+      dockerfile: Dockerfile
+    container_name: clients-service-3
+    env_file:
+      - ../censudex-clients/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5003
+      - INSTANCE_ID=3
     networks:
       - censudex-net
 
