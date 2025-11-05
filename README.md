@@ -79,7 +79,7 @@ Existen **dos formas** de levantar el entorno completo de Censudex:
 ---
 ### Opción 1: Modo Automático (con Makefile)
 
-Para simplificar proceso de levantamiento el proyecto incluye un `Makefile` que automatiza:
+Para simplificar proceso de levantamiento el proyecto incluye un `Makefile` que automatiza, para el correcto funcionamiento de `Makefile` en Windows, utiliza la **CLI de Git Bash**:
 
 * La clonación de todos los repositorios
 * La copia de los archivos `.env.example`
@@ -100,7 +100,7 @@ Algunas variables, como SERVICE_PORT ya existen por predeterminado, llena aquell
 
 #### 2. Ejecutar el comando de instalación
 
-Desde cualquier terminal con soporte de `make` (Linux, macOS o WSL en Windows):
+Desde la terminal de **Git Bash**:
 
 ```bash
 make setup
