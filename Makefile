@@ -45,7 +45,7 @@ propagate-env:
 		} \
 		/^[^#].*=/ { \
 			if (current != "") { \
-				if (current == "API_GATEWAY") { next; } \
+				if (current == "API-GATEWAY") { next; } \
 				file = parent "/censudex-" tolower(current) "/.env"; \
 				print $$0 >> file; \
 			} \
