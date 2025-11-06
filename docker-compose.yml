@@ -12,9 +12,13 @@ services:
       - auth-service-1
       - auth-service-2
       - auth-service-3
+      - auth-service-4
+      - auth-service-5
       - clients-service-1
       - clients-service-2
       - clients-service-3
+      - clients-service-4
+      - clients-service-5
     networks:
       - censudex-net
 
@@ -49,6 +53,26 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:5002
       - INSTANCE_ID=3
+    networks:
+      - censudex-net
+  auth-service-4:
+    build: ../censudex-auth  
+    container_name: auth-service-4
+    env_file:
+      - ../censudex-auth/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5002
+      - INSTANCE_ID=4
+    networks:
+      - censudex-net
+  auth-service-5:
+    build: ../censudex-auth  
+    container_name: auth-service-5
+    env_file:
+      - ../censudex-auth/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5002
+      - INSTANCE_ID=5
     networks:
       - censudex-net
 
@@ -89,6 +113,30 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:5003
       - INSTANCE_ID=3
+    networks:
+      - censudex-net
+  clients-service-4:
+    build:
+      context: ../censudex-clients   
+      dockerfile: Dockerfile
+    container_name: clients-service-4
+    env_file:
+      - ../censudex-clients/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5003
+      - INSTANCE_ID=4
+    networks:
+      - censudex-net
+  clients-service-5:
+    build:
+      context: ../censudex-clients   
+      dockerfile: Dockerfile
+    container_name: clients-service-5
+    env_file:
+      - ../censudex-clients/.env  
+    environment:
+      - ASPNETCORE_URLS=http://+:5003
+      - INSTANCE_ID=5
     networks:
       - censudex-net
 
