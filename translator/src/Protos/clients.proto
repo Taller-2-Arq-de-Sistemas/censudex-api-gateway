@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+package clients;
+
+option csharp_namespace = "censudex_api_gateway.src.Protos.Clients";
+
+// ------------ SERVICE ------------
+
+service ClientsService {
+    rpc Create (CreateUserRequestProto) returns (ViewUserResponseProto);
+    rpc GetAll (ClientQueryProto) returns (ClientsListResponseProto);
+    rpc GetById (GetClientByIdRequestProto) returns (ViewUserResponseProto);
+    rpc Update (UpdateUserRequestProto) returns (UpdateResponseProto);
+    rpc SoftDelete (SoftDeleteRequestProto) returns (SoftDeleteResponseProto);
+    rpc VerifyCredentials (VerifyCredentialsRequestProto) returns (VerifyCredentialsResponseProto);
+}
+
+// ------------ REQUEST DTOs ------------
+
+message CreateUserRequestProto {
+    string firstName = 1;
+    string lastName = 2;
+    string email = 3;
+    string username = 4;
+    string birthDate = 5;
+    string address = 6;
+    string phoneNumber = 7;
+    string password = 8;
+}
+
+message UpdateUserRequestProto {
+    string id = 1; // guid as string
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4;
+    string username = 5;
+    string birthDate = 6;
+    string address = 7;
+    string phoneNumber = 8;
+}
+
+message GetClientByIdRequestProto {
+    string id = 1;
+}
+
+message ClientQueryProto {
+    string fullName = 1;
+    string email = 2;
+    string username = 3;
+    bool isActive = 4;
+    string sortBy = 5;
+    bool isDescending = 6;
+    int32 pageNumber = 7;
+    int32 pageSize = 8;
+}
+
+message SoftDeleteRequestProto {
+    string id = 1;
+    string token = 2; // provided by API Gateway
+}
+
+message VerifyCredentialsRequestProto {
+    string email = 1;
+    string username = 2;
+    string password = 3;
+}
+
+// ------------ RESPONSE DTOs ------------
+
+message ViewUserResponseProto {
+    ClientProto client = 1;
+}
+
+message ClientsListResponseProto {
+    repeated ClientProto items = 1;
+    int32 totalCount = 2;
+    int32 totalPages = 3;
+}
+
+message UpdateResponseProto {
+    bool success = 1;
+}
+
+message SoftDeleteResponseProto {
+    bool success = 1;
+}
+
+message VerifyCredentialsResponseProto {
+    string id = 1;
+    string role = 2;
+    string username = 3;
+    string email = 4;
+    bool isActive = 5;
+}
+
+// ------------ USER MODEL ------------
+
+message ClientProto {
+    string id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4;
+    string username = 5;
+    string birthDate = 6;
+    string address = 7;
+    string phoneNumber = 8;
+    string role = 9;
+    bool isActive = 10;
+}
