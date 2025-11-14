@@ -9,6 +9,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./logs:/var/log/nginx
     depends_on:
+      - translator
       - auth-service-1
       - auth-service-2
       - auth-service-3
@@ -19,6 +20,21 @@ services:
       - clients-service-3
       - clients-service-4
       - clients-service-5
+    networks:
+      - censudex-net
+
+  # HTTP gRPC Translator Service
+  translator:
+    build:
+      context: ./translator 
+      dockerfile: Dockerfile
+    container_name: translator
+    env_file:
+      - ./.env
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+    depends_on:
+      - clients-service-1
     networks:
       - censudex-net
 
