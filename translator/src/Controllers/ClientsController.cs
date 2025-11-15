@@ -2,16 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using censudex_api_gateway.src.Protos.Clients;
 using Grpc.Core;
 using translator.src.Dtos.Clients;
+using translator.src.Extensions;
 
 [ApiController]
 [Route("clients")]
 public class ClientsController : ControllerBase
 {
-    private readonly ClientsService.ClientsServiceClient _grpc;
+    private readonly IClientsGrpcClient _grpcClient;
 
-    public ClientsController(ClientsService.ClientsServiceClient grpc)
+    public ClientsController(IClientsGrpcClient grpcClient)
     {
-        _grpc = grpc;
+        _grpcClient = grpcClient;
     }
 
     // ------------------ CREATE ------------------
@@ -32,7 +33,8 @@ public class ClientsController : ControllerBase
 
         try
         {
-            var res = await _grpc.CreateAsync(req);
+            var client = _grpcClient.GetClient();
+            var res = await client.CreateAsync(req);
 
             return Ok(new
             {
@@ -76,7 +78,8 @@ public class ClientsController : ControllerBase
             PageSize = pageSize
         };
 
-        var res = await _grpc.GetAllAsync(req);
+        var client = _grpcClient.GetClient();
+        var res = await client.GetAllAsync(req);
 
         return Ok(new
         {
@@ -95,7 +98,8 @@ public class ClientsController : ControllerBase
 
         try
         {
-            var res = await _grpc.GetByIdAsync(req);
+            var client = _grpcClient.GetClient();
+            var res = await client.GetByIdAsync(req);
             return Ok(res.Client);
         }
         catch (RpcException ex)
@@ -128,7 +132,8 @@ public class ClientsController : ControllerBase
 
         try
         {
-            var res = await _grpc.UpdateAsync(req);
+            var client = _grpcClient.GetClient();
+            var res = await client.UpdateAsync(req);
             return Ok(new { Success = res.Success });
         }
         catch (RpcException ex)
@@ -158,7 +163,8 @@ public class ClientsController : ControllerBase
 
         try
         {
-            var res = await _grpc.SoftDeleteAsync(req);
+            var client = _grpcClient.GetClient();
+            var res = await client.SoftDeleteAsync(req);
             return Ok(new { Success = res.Success });
         }
         catch (RpcException ex)
@@ -186,7 +192,8 @@ public class ClientsController : ControllerBase
 
         try
         {
-            var res = await _grpc.VerifyCredentialsAsync(req);
+            var client = _grpcClient.GetClient();
+            var res = await client.VerifyCredentialsAsync(req);
 
             return Ok(new
             {
@@ -207,7 +214,6 @@ public class ClientsController : ControllerBase
 
         }
     }
-
 
     // ------------------ HELPER ------------------
     private static System.Net.HttpStatusCode MapGrpcToHttp(StatusCode grpcStatusCode)

@@ -21,15 +21,24 @@ namespace translator.src.Extensions
                 string url = $"http://{BaseName}-{i}:{Port}";
                 Console.WriteLine($"[gRPC] Registering instance: {url}");
 
+                // Create a custom HttpClient that allows HTTP/1.1
+                var httpClientHandler = new HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback =
+                        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+
+                var httpClient = new HttpClient(httpClientHandler);
+
                 var channel = GrpcChannel.ForAddress(url, new GrpcChannelOptions
                 {
-                    HttpHandler = new HttpClientHandler()
+                    HttpClient = httpClient,
+                    DisposeHttpClient = true
                 });
 
                 channels.Add(channel);
             }
 
-            // Register channels + load balancer wrapper
             services.AddSingleton(channels);
             services.AddSingleton<IClientsGrpcClient, ClientsGrpcLoadBalancer>();
 
