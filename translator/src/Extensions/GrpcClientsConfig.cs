@@ -28,12 +28,20 @@ namespace translator.src.Extensions
                         HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                 };
 
-                var httpClient = new HttpClient(httpClientHandler);
+                var handler = new SocketsHttpHandler
+                {
+                    EnableMultipleHttp2Connections = true,
+                    AllowAutoRedirect = false
+                };
+
+                handler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
+                {
+                    RemoteCertificateValidationCallback = (_, _, _, _) => true
+                };
 
                 var channel = GrpcChannel.ForAddress(url, new GrpcChannelOptions
                 {
-                    HttpClient = httpClient,
-                    DisposeHttpClient = true
+                    HttpHandler = handler
                 });
 
                 channels.Add(channel);
