@@ -2,9 +2,9 @@
 REPOS = \
 	censudex-auth \
 	censudex-clients \
+	censudex-products \
 	# censudex-inventory \
-	# censudex-orders \
-	# censudex-products
+	# censudex-orders 
 
 PARENT_DIR := $(abspath $(CURDIR)/..)
 
@@ -14,7 +14,9 @@ clone:
 	for repo in $(REPOS); do \
 		if [ ! -d "$(PARENT_DIR)/$$repo" ]; then \
 			git clone https://github.com/Taller-2-Arq-de-Sistemas/$$repo.git $(PARENT_DIR)/$$repo; \
-			cd $(PARENT_DIR)/$$repo && git checkout dev; \
+			if [ "$$repo" != "censudex-products" ]; then \
+				cd $(PARENT_DIR)/$$repo && git checkout dev; \
+			fi; \
 		else \
 			echo "Repository $$repo already exists, skipping..."; \
 		fi; \

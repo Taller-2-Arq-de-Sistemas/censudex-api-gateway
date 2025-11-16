@@ -11,15 +11,8 @@ services:
     depends_on:
       - translator
       - auth-service-1
-      - auth-service-2
-      - auth-service-3
-      - auth-service-4
-      - auth-service-5
       - clients-service-1
-      - clients-service-2
-      - clients-service-3
-      - clients-service-4
-      - clients-service-5
+      - products-service-1
     networks:
       - censudex-net
 
@@ -50,48 +43,6 @@ services:
     networks:
       - censudex-net
 
-  auth-service-2:
-    build: ../censudex-auth  
-    container_name: auth-service-2
-    env_file:
-      - ../censudex-auth/.env  
-    environment:
-      - ASPNETCORE_URLS=http://+:5002
-      - INSTANCE_ID=2
-    networks:
-      - censudex-net
-
-  auth-service-3:
-    build: ../censudex-auth  
-    container_name: auth-service-3
-    env_file:
-      - ../censudex-auth/.env  
-    environment:
-      - ASPNETCORE_URLS=http://+:5002
-      - INSTANCE_ID=3
-    networks:
-      - censudex-net
-  auth-service-4:
-    build: ../censudex-auth  
-    container_name: auth-service-4
-    env_file:
-      - ../censudex-auth/.env  
-    environment:
-      - ASPNETCORE_URLS=http://+:5002
-      - INSTANCE_ID=4
-    networks:
-      - censudex-net
-  auth-service-5:
-    build: ../censudex-auth  
-    container_name: auth-service-5
-    env_file:
-      - ../censudex-auth/.env  
-    environment:
-      - ASPNETCORE_URLS=http://+:5002
-      - INSTANCE_ID=5
-    networks:
-      - censudex-net
-
   # Clients Service Instances (3) for load balance
   clients-service-1:
     build:
@@ -105,54 +56,17 @@ services:
     networks:
       - censudex-net
 
-  clients-service-2:
+  products-service-1:
     build:
-      context: ../censudex-clients   
+      context: ../censudex-products   
       dockerfile: Dockerfile
-    container_name: clients-service-2
+    container_name: products-service-1
     env_file:
-      - ../censudex-clients/.env  
+      - ../censudex-products/.env  
     environment:
-      - INSTANCE_ID=2
+      - INSTANCE_ID=1
     networks:
       - censudex-net
-
-  clients-service-3:
-    build:
-      context: ../censudex-clients   
-      dockerfile: Dockerfile
-    container_name: clients-service-3
-    env_file:
-      - ../censudex-clients/.env  
-    environment:
-      - INSTANCE_ID=3
-    networks:
-      - censudex-net
-      
-  clients-service-4:
-    build:
-      context: ../censudex-clients   
-      dockerfile: Dockerfile
-    container_name: clients-service-4
-    env_file:
-      - ../censudex-clients/.env  
-    environment:
-      - INSTANCE_ID=4
-    networks:
-      - censudex-net
-
-  clients-service-5:
-    build:
-      context: ../censudex-clients   
-      dockerfile: Dockerfile
-    container_name: clients-service-5
-    env_file:
-      - ../censudex-clients/.env  
-    environment:
-      - INSTANCE_ID=5
-    networks:
-      - censudex-net
-
 networks:
   censudex-net:
     driver: bridge
