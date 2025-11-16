@@ -14,10 +14,6 @@ services:
       - clients-service-1
       - products-service-1
       - inventory-service-1
-      - inventory-service-2
-      - inventory-service-3
-      - inventory-service-4
-      - inventory-service-5
     networks:
       - censudex-net
 
@@ -72,7 +68,32 @@ services:
       - INSTANCE_ID=1
     networks:
       - censudex-net
-
+  
+  inventory-service-1:
+    build:
+      context: ../censudex-inventory
+      dockerfile: Dockerfile
+    container_name: inventory-service-1
+    env_file:
+      - ../censudex-inventory/.env
+    environment:
+      - INSTANCE_ID=1
+      - GRPC_PORT=5005
+    networks:
+      - censudex-net
+    depends_on:
+      - rabbitmq
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - censudex-net
 networks:
   censudex-net:
     driver: bridge
