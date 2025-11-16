@@ -1,51 +1,41 @@
 using Grpc.Net.Client;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using censudex_api_gateway.src.Protos.Clients;
-using System.Net.Http;
 
 namespace translator.src.Extensions
 {
     public static class GrpcClientsConfig
     {
-        private const string BaseName = "clients-service";
-        private const int Port = 5003;
-        private const int InstanceCount = 5;
-
         public static IServiceCollection AddGrpcClients(this IServiceCollection services)
         {
             var channels = new List<GrpcChannel>();
+            string url = "http://clients-service-1:5003";
+            Console.WriteLine($"[gRPC] Registering instance: {url}");
 
-            for (int i = 1; i <= InstanceCount; i++)
+            // Create a custom HttpClient that allows HTTP/1.1
+            var httpClientHandler = new HttpClientHandler
             {
-                string url = $"http://{BaseName}-{i}:{Port}";
-                Console.WriteLine($"[gRPC] Registering instance: {url}");
+                ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
 
-                // Create a custom HttpClient that allows HTTP/1.1
-                var httpClientHandler = new HttpClientHandler
-                {
-                    ServerCertificateCustomValidationCallback =
-                        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                };
+            var handler = new SocketsHttpHandler
+            {
+                EnableMultipleHttp2Connections = true,
+                AllowAutoRedirect = false
+            };
 
-                var handler = new SocketsHttpHandler
-                {
-                    EnableMultipleHttp2Connections = true,
-                    AllowAutoRedirect = false
-                };
+            handler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
+            {
+                RemoteCertificateValidationCallback = (_, _, _, _) => true
+            };
 
-                handler.SslOptions = new System.Net.Security.SslClientAuthenticationOptions
-                {
-                    RemoteCertificateValidationCallback = (_, _, _, _) => true
-                };
+            var channel = GrpcChannel.ForAddress(url, new GrpcChannelOptions
+            {
+                HttpHandler = handler
+            });
 
-                var channel = GrpcChannel.ForAddress(url, new GrpcChannelOptions
-                {
-                    HttpHandler = handler
-                });
+            channels.Add(channel);
 
-                channels.Add(channel);
-            }
 
             services.AddSingleton(channels);
             services.AddSingleton<IClientsGrpcClient, ClientsGrpcLoadBalancer>();

@@ -11,18 +11,10 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 builder.Services.AddControllers();
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ConfigureEndpointDefaults(listenOptions =>
-    {
-        listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-    });
-});
 // Register gRPC channel to backend microservice
 builder.Services.AddGrpcClients();
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
 app.MapControllers();  // exposes HTTP endpoints for nginx
 app.Run();
