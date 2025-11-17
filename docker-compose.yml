@@ -13,6 +13,7 @@ services:
       - auth-service-1
       - clients-service-1
       # - products-service-1
+      # - products-service-1
       - inventory-service-1
     networks:
       - censudex-net
@@ -80,12 +81,12 @@ services:
       - ../censudex-inventory/.env
     environment:
       - INSTANCE_ID=1
-      - GRPC_PORT=5005
+      - INVENTORY_SERVICE_PORT=5005
     networks:
       - censudex-net
     depends_on:
-      - rabbitmq
-
+      rabbitmq:
+        condition: service_healthy
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
@@ -95,9 +96,14 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
+    healthcheck:  # ← Agregar esto
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - censudex-net
-
+    
 networks:
   censudex-net:
     driver: bridge

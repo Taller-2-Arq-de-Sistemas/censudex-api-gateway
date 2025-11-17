@@ -2,8 +2,8 @@
 REPOS = \
 	censudex-auth \
 	censudex-clients \
-	censudex-products \
 	censudex-inventory \
+	censudex-products \
 	# censudex-orders 
 
 PARENT_DIR := $(abspath $(CURDIR)/..)
