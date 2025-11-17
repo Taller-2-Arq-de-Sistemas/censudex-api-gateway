@@ -17,7 +17,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiYTRmOGMxZTUtYTMzMS00ODUxLWJmNTItYTYzNGViYmY2ZDAyIiwiZXhwIjoxNzYyMDY1NjI4fQ.CTJmRm6drwgIu_AquKP2FNpbmbLBj3mqs0TJwYVJiuk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiOGQ5ZGM4Y2MtZDNmZi00YzdmLTkxNGItMTI0YTg2NmQ5OWQzIiwiZXhwIjoxNzYzMzQ1NTU2fQ.ZAAn-pakAGCsVZejU3K1GwY4C_gL6oYByf93ceQpe_Y",
 								"type": "text"
 							}
 						],
@@ -80,7 +80,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiYTRmOGMxZTUtYTMzMS00ODUxLWJmNTItYTYzNGViYmY2ZDAyIiwiZXhwIjoxNzYyMDY1NjI4fQ.CTJmRm6drwgIu_AquKP2FNpbmbLBj3mqs0TJwYVJiuk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiOGQ5ZGM4Y2MtZDNmZi00YzdmLTkxNGItMTI0YTg2NmQ5OWQzIiwiZXhwIjoxNzYzMzQ1NTU2fQ.ZAAn-pakAGCsVZejU3K1GwY4C_gL6oYByf93ceQpe_Y",
 								"type": "text"
 							}
 						],
@@ -110,7 +110,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"firstName\": \"Alice\",\r\n  \"lastName\": \"Wonderland\",\r\n  \"email\": \"alice@censudex.cl\",\r\n  \"username\": \"alice123\",\r\n  \"birthDate\": \"1995-08-15\",\r\n  \"address\": \"123 Fantasy St\",\r\n  \"phoneNumber\": \"+56912345678\",\r\n  \"password\": \"StrongPass1!\"\r\n}\r\n",
+							"raw": "{\r\n  \"firstName\": \"Alice\",\r\n  \"lastName\": \"Wonderland\",\r\n  \"email\": \"alaa22ice@censudex.cl\",\r\n  \"username\": \"alic222aae123\",\r\n  \"birthDate\": \"1995-08-15\",\r\n  \"address\": \"123 Fantasy St\",\r\n  \"phoneNumber\": \"+56912345678\",\r\n  \"password\": \"StrongPass1!\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -148,7 +148,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{gateway_baseurl}}/clients-api/clients",
+							"raw": "{{gateway_baseurl}}/clients-api/clients?isActive=false",
 							"host": [
 								"{{gateway_baseurl}}"
 							],
@@ -164,8 +164,7 @@
 								},
 								{
 									"key": "isActive",
-									"value": "false",
-									"disabled": true
+									"value": "false"
 								},
 								{
 									"key": "username",
@@ -174,7 +173,7 @@
 								},
 								{
 									"key": "email",
-									"value": "aliceupdated@censudex.cl",
+									"value": "alice2updated@censudex.cl",
 									"disabled": true
 								}
 							]
@@ -188,14 +187,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{gateway_baseurl}}/clients-api/clients/ea3f707f-bb11-4fd3-8ddc-0166d52992f4",
+							"raw": "{{gateway_baseurl}}/clients-api/clients/022cb92b-c5c0-4d0b-a882-ba4a7273d54c",
 							"host": [
 								"{{gateway_baseurl}}"
 							],
 							"path": [
 								"clients-api",
 								"clients",
-								"ea3f707f-bb11-4fd3-8ddc-0166d52992f4"
+								"022cb92b-c5c0-4d0b-a882-ba4a7273d54c"
 							]
 						}
 					},
@@ -208,7 +207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"firstName\": \"AliceUpdated\",\r\n  \"lastName\": \"WonderlandUpdated\",\r\n  \"email\": \"aliceupdated@censudex.cl\",\r\n  \"username\": \"aliceUpdated123\",\r\n  \"birthDate\": \"1995-08-15\",\r\n  \"address\": \"456 Fantasy St\",\r\n  \"phoneNumber\": \"+56987654321\",\r\n  \"password\": \"NewStrongPass1!\"\r\n}\r\n",
+							"raw": "{\r\n  \"firstName\": \"AliceUpdaa\",\r\n  \"lastName\": \"Wonderlanda\",\r\n  \"email\": \"alice100@censudex.cl\",\r\n  \"username\": \"alice12300000\",\r\n  \"birthDate\": \"1995-08-15\",\r\n  \"address\": \"456 Fantasy St\",\r\n  \"phoneNumber\": \"+56987654321\",\r\n  \"password\": \"NewStrongPass1!\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -216,14 +215,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{gateway_baseurl}}/clients-api/clients/0256854b-0bb2-425f-9440-58aad23b0edb",
+							"raw": "{{gateway_baseurl}}/clients-api/clients/022cb92b-c5c0-4d0b-a882-ba4a7273d54c",
 							"host": [
 								"{{gateway_baseurl}}"
 							],
 							"path": [
 								"clients-api",
 								"clients",
-								"0256854b-0bb2-425f-9440-58aad23b0edb"
+								"022cb92b-c5c0-4d0b-a882-ba4a7273d54c"
 							]
 						}
 					},
@@ -242,11 +241,11 @@
 								}
 							]
 						},
-						"method": "PATCH",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiYTRmOGMxZTUtYTMzMS00ODUxLWJmNTItYTYzNGViYmY2ZDAyIiwiZXhwIjoxNzYyMDY1NjI4fQ.CTJmRm6drwgIu_AquKP2FNpbmbLBj3mqs0TJwYVJiuk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjExMTExMTExLTExMTEtMTExMS0xMTExLTExMTExMTExMTExMSIsIlJvbGUiOiIxIiwianRpIjoiOGQ5ZGM4Y2MtZDNmZi00YzdmLTkxNGItMTI0YTg2NmQ5OWQzIiwiZXhwIjoxNzYzMzQ1NTU2fQ.ZAAn-pakAGCsVZejU3K1GwY4C_gL6oYByf93ceQpe_Y",
 								"type": "text"
 							}
 						],
@@ -297,7 +296,60 @@
 		},
 		{
 			"name": "Products",
-			"item": []
+			"item": [
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{gateway_baseurl}}/products-api/products",
+							"host": [
+								"{{gateway_baseurl}}"
+							],
+							"path": [
+								"products-api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "fullName",
+									"value": "Alice",
+									"disabled": true
+								},
+								{
+									"key": "isActive",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "alice",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "aliceupdated@censudex.cl",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Inventory",
