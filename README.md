@@ -43,20 +43,27 @@ censudex-api-gateway/
 **Auth Service (.env):**
 ```env
 CLIENTS_SERVICE_URL=http://nginx-gateway:80/clients-api
-JWT_SECRET=your-api-secret
-JWT_EXPIRATION_MINUTES=your-preferred-time
+JWT_SECRET=
+JWT_EXPIRATION_MINUTES=
+AUTH_SERVICE_PORT=5002
 ```
 
 **Clients Service (.env):**
 ```env
-DB_CONNECTION_STRING=your-db-connection-string
+DB_CONNECTION_STRING=
 AUTH_SERVICE_URL=http://nginx-gateway:80/auth-api
+CLIENTS_SERVICE_PORT=5003
+RABBITMQ_USER=
+RABBITMQ_PASS=
+RABBITMQ_HOST=
 ```
 
 **Inventory Service (.env):**
 ```env
-SUPABASE_URL=your-db-url
-SUPABASE_KEY=your-db-key
+SUPABASE_URL=
+SUPABASE_KEY=
+RABBITMQ_URL=
+INVENTORY_SERVICE_PORT=5005
 ```
 
 **Orders Service (.env):**
@@ -65,6 +72,15 @@ SUPABASE_KEY=your-db-key
 
 **Products Service (.env):**
 ```env
+DATABASE_URL=
+DATABASE_NAME=
+COLECTION_NAME=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_URL=
+CLODINARY_FOLDER_NAME=
+PRODUCTS_SERVICE_PORT=5004
 ```
 
 ---
