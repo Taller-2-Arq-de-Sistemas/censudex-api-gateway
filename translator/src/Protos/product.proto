@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option csharp_namespace = "censudex_api_gateway.src.Protos.Product";
+
+package products;
+
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string category = 7;
+  string imageUrl = 5;
+  bool isActive = 6; //Revisar esto
+}
+
+// Peticiones
+message Empty {}
+message ProductIdRequest {
+  string id = 1;
+}
+message NewProductRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+  string category = 4;
+  bytes image = 5;
+}
+message UpdateProductRequest {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string category = 5;
+  bytes image = 6;
+}
+message ProductIdSoftDeleteRequest {
+  string id = 1;
+}
+
+// Respuestas
+message ProductList {
+  repeated Product products = 1;
+}
+message ProductResponse {
+  bool success = 1;
+  string message = 2;
+  Product product = 3;
+}
+
+// Definición del servicio
+service ProductService {
+  rpc GetAllProducts (Empty) returns (ProductList);
+  rpc GetProductById (ProductIdRequest) returns (Product);
+  rpc CreateProduct (NewProductRequest) returns (ProductResponse);
+  rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
+  rpc SoftDeleteProduct (ProductIdRequest) returns (ProductResponse);
+}

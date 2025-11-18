@@ -60,17 +60,22 @@ services:
     depends_on:
       - rabbitmq
 
+
   products-service-1:
     build:
-      context: ../censudex-products   
+      context: ../censudex-products
       dockerfile: Dockerfile
     container_name: products-service-1
+    ports:
+      - "5004:5004"
     env_file:
       - ../censudex-products/.env  
     environment:
+      - ASPNETCORE_URLS=http://+:5004
       - INSTANCE_ID=1
     networks:
       - censudex-net
+
   
   inventory-service-1:
     build:
