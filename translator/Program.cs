@@ -13,6 +13,8 @@ builder.WebHost.ConfigureKestrel(options =>
 builder.Services.AddControllers();
 // Register gRPC channel to backend microservice
 builder.Services.AddGrpcClients();
+builder.Services.AddGrpcProductsClient();
+
 
 var app = builder.Build();
 

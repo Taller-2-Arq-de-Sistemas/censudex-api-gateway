@@ -14,9 +14,6 @@ clone:
 	for repo in $(REPOS); do \
 		if [ ! -d "$(PARENT_DIR)/$$repo" ]; then \
 			git clone https://github.com/Taller-2-Arq-de-Sistemas/$$repo.git $(PARENT_DIR)/$$repo; \
-			if [ "$$repo" != "censudex-products" ]; then \
-				cd $(PARENT_DIR)/$$repo && git checkout dev; \
-			fi; \
 		else \
 			echo "Repository $$repo already exists, skipping..."; \
 		fi; \

@@ -6,8 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+ 
   <ItemGroup>
     <Protobuf Include="src/Protos/clients.proto" GrpcServices="Client" />
+    <Protobuf Include="src/Protos/product.proto" GrpcServices="Client" />
     <PackageReference Include="DotNetEnv" Version="3.1.1" />
     <PackageReference Include="Google.Protobuf" Version="3.33.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
